@@ -1,17 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+
+// import bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+// import browser router dr reactrouterdom
+import { BrowserRouter } from 'react-router-dom'
+
+// import createstore dari redux
+import { createStore } from 'redux'
+
+// import provide dari reactredux
+import { Provider } from 'react-redux';
+
+// import combine reducers disini
+import allReducers from './reducer'
+
+// buat variabel u/ globalstate
+const globalState = createStore (allReducers)
+
+// subscribe variabel globalState u/ console.log redux setiap kali react nya dipanggil
+globalState.subscribe(() => console.log('Global State : ', globalState.getState()))
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store= {globalState}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
